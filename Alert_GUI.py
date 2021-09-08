@@ -1,10 +1,10 @@
-import tkinter as tk
-from tkinter import *
-from main import *
 __author__ = 'Ahmet Mete Erol'
 __date__ = '07/09/2021'
 __license__ = 'Apache License 3.0'
 
+import tkinter as tk
+from tkinter import *
+from main import *
 
 # Select product type section
 
