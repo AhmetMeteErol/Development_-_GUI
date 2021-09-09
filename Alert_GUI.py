@@ -1,38 +1,48 @@
-__author__ = 'Ahmet Mete Erol'
-__date__ = '07/09/2021'
-__license__ = 'Apache License 3.0'
+# This is the GUI Section which uses mainly main.py and csv_example.py
 
+__author__ = 'Ahmet Mete Erol'
+__copyright__ = "Copyright (c) 2021 Besiktas Istanbul Turkey"
+__date__ = '07/09/2021 10:44'
+
+# importing libraries
 import tkinter as tk
 from tkinter import *
 from main import *
+from csv_example import *
 
-# Select product type section
 
-ws = Tk()
-ws.title('Choose the product type')
-ws.geometry('400x300')
-ws.config(bg='#F2B90C')
+# Select product type window section
+
+First_Window = Tk()
+First_Window.title('Choose the product type')
+First_Window.geometry('400x300')
+First_Window.config(bg='#F2B90C')
 
 
 def display_selected(choice):
-    choice = variable.get()
+    choice = variable_product_type.get()
     print(choice)
 
 
 products = ['KVC', '32"Inches LCD Display', 'Filter', 'Workstation']
 
-# setting variable for Integers
-variable = StringVar()
-variable.set(products[3])
+# to hold variables from the GUIs'
+variable_product_type = StringVar()
+# At the begining, user will see first element of the list on the menu.
+variable_product_type.set(products[0])
 
 # creating widget
 dropdown = OptionMenu(
-    ws,
-    variable,
+    First_Window,
+    variable_product_type,
     *products,
-    command=lambda: [
-        display_selected(), root.destroy()]
+    command=display_selected
 )
+# positioning widget
+dropdown.pack(expand=True)
+
+ok_btn = tk.Button(First_Window, text='OK', command=First_Window.destroy)
+ok_btn.pack(anchor=S)
 
 # ürün türünü seçerken isim, ilk adet ve tarih de girilsin
 # ordan da girilen değerler class'ların içine değer olarak girsin
@@ -42,161 +52,140 @@ dropdown = OptionMenu(
 # SIUC(isim,adet,tarih).IsUnnecassaryStockage diye giderim
 
 
-# positioning widget
-dropdown.pack(expand=True)
-
 # infinite loop
 
-ws.mainloop()
+First_Window.mainloop()
 
+# Submit widget section
+second_window = tk.Tk()
+second_window.title("Enter Model Part No and Arrival Date")
+# setting the windoFirst_Window size
+second_window.geometry("600x400")
 
-root = tk.Tk()
-
-# setting the windows size
-root.geometry("600x400")
-
-# declaring string variable
+# declaring string variable_product_type
 # for storing model_name and Arrival_date
-model_name_var = tk.StringVar()
-arriv_date_var = tk.StringVar()
+model_id_var = StringVar()
+arriv_date_var = StringVar()
 
+# print(model_id_var.get())
+model_id_var.set("1234")
+arriv_date_var.set("07/09/2021")
 
 # defining a function that will
 # get the model_name and Arrival_date and
 # print them on the screen
-def submit():
 
-    model_name = model_name_var.get()
-    Arrival_date = arriv_date_var.get()
+global model_name
+
+
+def submit():
+    model_name = model_id_var.get()
+    # Arrival_date = arriv_date_var.get()
 
     print("The model name is : " + model_name)
-    print("The Arrival date is : " + Arrival_date)
+    # print("The Arrival date is : " + Arrival_date)
 
-    model_name_var.set("")
-    arriv_date_var.set("")
+    # model_id_var.set("")
+    # arriv_date_var.set("")
 
 
 # creating a label for
 # model_name using widget Label
-model_name_label = tk.Label(
-    root, text='Model no:', font=('calibre', 10, 'bold'))
+model_id_name = tk.Label(
+    second_window, text='Model no:', font=('calibre', 10, 'bold'))
 
 # creating a entry for input
 # model_name using widget Entry
-model_name_entry = tk.Entry(root, textvariable=model_name_var,
-                            font=('calibre', 10, 'normal'))
+model_id_entry = Entry(second_window, text=model_id_var,
+                       font=('calibre', 10, 'normal'))
 
-# creating a label for Arrival_date
-passw_label = tk.Label(root, text='First Arrival Time:',
+# # creating a label for Arrival_date
+passw_label = tk.Label(second_window, text='First Arrival Time:',
                        font=('calibre', 10, 'bold'))
 
-# creating a entry for Arrival_date
-passw_entry = tk.Entry(root, textvariable=arriv_date_var,
+# # creating a entry for Arrival_date
+passw_entry = tk.Entry(second_window, text=arriv_date_var,
                        font=('calibre', 10, 'normal'))
 
 # creating a button using the widget
 # Button that will call the submit function
-sub_btn = tk.Button(root, text='Submit', command=lambda: [
-                    submit(), root.destroy()])          # by using this syntaxe, we could command two functions in one Button
+sub_btn = tk.Button(second_window, text='Submit', command=lambda: [
+    submit(), second_window.destroy()])          # by using this syntaxe, we could command two functions in one Button
 
 # placing the label and entry in
 # the required position using grid
 # method
-model_name_label.grid(row=0, column=0)
-model_name_entry.grid(row=0, column=1)
+model_id_name.grid(row=0, column=0)
+model_id_entry.grid(row=0, column=1)
 passw_label.grid(row=1, column=0)
 passw_entry.grid(row=1, column=1)
 sub_btn.grid(row=2, column=1)
 
 # performing an infinite loop
 # for the window to display
-root.mainloop()
+second_window.mainloop()
 
-
-# Python 3.x code
-# Imports
-
-master = Tk()
-
-master.title("YALTES STORAGE INFO WINDOW")
+"""3rd Window Section"""
+third_window = Tk()
+third_window.title("YALTES STORAGE INFO WINDOW")
 
 # Creating Frames Section
-canvas = Canvas(master, height=450, width=850)
+canvas = Canvas(third_window, height=450, width=850)
 canvas.pack()
 
-up_frame = Frame(master, bg='#add8e6')
+up_frame = Frame(third_window, bg='#add8e6')
 up_frame.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.1)
 
-down_left_frame = Frame(master, bg='#add8e6')
+down_left_frame = Frame(third_window, bg='#add8e6')
 down_left_frame.place(relx=0.1, rely=0.21, relwidth=0.23, relheight=0.5)
 
-down_right_frame = Frame(master, bg='#add8e6')
+down_right_frame = Frame(third_window, bg='#add8e6')
 down_right_frame.place(relx=0.34, rely=0.21, relwidth=0.56, relheight=0.5)
 
 # Product Type Layer Section
-product_type_tag = Label(up_frame, bg='#add8e6',
-                         text="Product Type:", font="Verdana 12 bold")
-product_type_tag.pack(padx=10, pady=10, side=LEFT)
+product_type_label = Label(up_frame, bg='#add8e6',
+                           text="Product Type:", font="Verdana 12 bold").pack(padx=10, pady=10, side=LEFT)
 
-# variable.get usage aims to get prompted value on Option Menu
+# variable_product_type.get usage aims to get prompted value on Option Menu
 Product_model_name = Label(up_frame, bg='#add8e6',
-                           text=variable.get(), font="Verdana 12 bold")
-Product_model_name.pack(padx=10, pady=10, expand=True)
+                           text=variable_product_type.get(), font="Verdana 12 bold").pack(padx=10, pady=10, side=LEFT)
 
-Unnecessary_Storage = Label(
+product_type_id = Label(up_frame, bg='#add8e6',
+                        text=model_id_var.get(), font="Verdana 12").pack(padx=10, pady=10, side=RIGHT)
+
+product_type_frame = Label(
+    up_frame, bg='#add8e6', text='Product ID:', font="Verdana 12 bold")
+product_type_frame.pack(padx=10, pady=10, side=RIGHT)
+
+Unnecessary_Storage_label = Label(
     down_right_frame, bg='#add8e6', text='Unnecessary Usage of Warehouse?', font="Verdana 11 bold")
-Unnecessary_Storage.pack(padx=10, pady=10, anchor=NW)
+Unnecessary_Storage_label.pack(padx=10, pady=10, anchor=NW)
+
+
+def get_is_unnecessary():
+    # print("variable_product_type.get() ===> ", variable_product_type.get())
+    # print("arriv_date_var.get() ===> ",  arriv_date_var.get())
+    # print("Product(variable_product_type.get(), arriv_date_var.get()).UnnecessaryStorage() ===> ",
+    #       Product(variable_product_type.get(), arriv_date_var.get()).UnnecessaryStorage())
+
+    if Product(variable_product_type.get(), arriv_date_var.get()).UnnecessaryStorage() == True:
+        Unnecessary_Storage_Situation = Label(
+            down_right_frame, bg='#add8e6', fg="green", text='NO', font="Verdana 13 bold").pack(padx=10, pady=10, expand=True)
+    else:
+        Unnecessary_Storage_Situation = Label(
+            down_right_frame, bg='#add8e6', fg="red", text='YES', font="Verdana 13 bold").pack(padx=10, pady=10, expand=True)
+
+
+Unnecessary_Storage_Situation = Label(
+    down_right_frame, bg='#add8e6', fg="red", text=get_is_unnecessary(), font="Verdana 13 bold").pack(padx=10, pady=10, expand=True)
+
 
 Under_limit_Sit_Label = Label(
-    down_left_frame, bg='#add8e6', text='Our Stockage is' + '\n' + 'under the minimum limit?', font="Verdana 9 bold")
-Under_limit_Sit_Label.pack(padx=10, pady=10, anchor=N)
-
-
-# # Unnecessary_Storage_actual_case_label = Label(down_right_frame, bg='#add8', text=str(Product(str(variable.get())).UnnecessaryStorage())   # I tried to get the data from entry label
-# # but it has to be prompted for example KVM1's inputs
-# def send_alert_box(product_model_name):
-#     if Limit_checkers.KVM_checker(product_model_name):
-#         KVM_alert_box = messagebox.showwarning(
-#             "KVM Alert", "Your KVM's are going down below the limit.")
-#         KVM_alert_box
-
-#     elif Limit_checkers.Display_checker(product_model_name):
-#         Display_alert_box = messagebox.showwarning(
-#             '32"-LCD Display Alert', 'Your 32"-LCD Display are going down below the limit.')
-#         Display_alert_box
-
-#     elif Limit_checkers.Filter_checker(product_model_name):
-#         Filter_alert_box = messagebox.showwarning(
-#             "Filter Alert", "Your Filters are going down below the limit.")
-#         Filter_alert_box
-
-#     elif Limit_checkers.Workstation_checker(product_model_name):
-#         WS_alert_box = messagebox.showwarning(
-#             "Workstation Alert", "Your Workstations are going down below the limit.")
-#         WS_alert_box
-
-
-# def Unneccessary_Storage_Alert_Box(product):
-#     if Product.UnnecessaryStorage(product):
-#         messagebox.showinfo("Unnecessary Storage",
-#                             "Your product is going to rot in the storage!")
-
-
-# def Welcoming_Box():
-
-#     # Converting date object to string for user
-#     todays_date_str = datetime.today().strftime("%d/%m/%Y")
-#     today_day_str = datetime.today().strftime("%A")
-#     str = 'Welcome! Today is '
+    down_left_frame, bg='#add8e6', text='Our Stockage is' + '\n' + 'under the minimum limit?', font="Verdana 9 bold").pack(padx=10, pady=10, anchor=N)
 
 
 """ Yapılması gerekenler --->
- kullanıcıdan gelen inputları class'larda çalıştırabilmek
+kullanıcıdan gelen inputları class'larda çalıştırabilmek
 """
 
-KVM1 = KVM(0, '14/12/2020')
-WS1 = Workstation(5, '12/08/2021')
-
-print(KVM1.UnnecessaryStorage())
-
-master.mainloop()
+third_window.mainloop()
