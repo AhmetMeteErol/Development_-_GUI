@@ -11,6 +11,8 @@ row_index_of_id = 0
 
 
 def arriv_date_csv_reader(product_id):
+    """Reads the csv file and returns the date of arrival"""
+
     with open('C:\\Users\\meteo\\Desktop\\Development\\YALTES\\YALTES_Stockage_Sample.csv', 'r') as csv_file:
         csv_reader_object = csv.reader(csv_file)
 
@@ -29,6 +31,8 @@ def arriv_date_csv_reader(product_id):
 
 
 def read_csv(product_id):
+    """reads the csv file and returns the quantity of the selected product."""
+
     with open('C:\\Users\\meteo\\Desktop\\Development\\YALTES\\YALTES_Stockage_Sample.csv', 'r') as csv_file:
         csv_reader_object = csv.reader(csv_file)
 
@@ -43,27 +47,13 @@ def read_csv(product_id):
             if product_id == product_id_in_csv:
                 return int_quantity
 
-            # print(int_quantity)
-            # print(
-            #     f"In the stockage, you have {row[row_index_of_quantity]} pieces of {row[row_index_of_quantity-1]}.")
-
-            # line_count = 0
-            # for row in csv_reader:
-
-            #     if line_count == 0:
-            #         print(f'column names are {", ".join(row)}')
-            #         line_count += 1
-            #     else:
-            #         print(
-            #             f'\t We have {row[1]} pieces of {row[0]} from that day: {row[2]}  ')
-            #         line_count += 1
-            #     print(f'Processed {line_count} lines.')
-
 
 # print(quantity_csv_reader("KVM6"))
 
 
 def write_on_csv(var1, var2, var3):
+    """Writes prompted values with arguments to CSV file."""
+
     with open('C:\\Users\\meteo\\Desktop\\Development\\YALTES\\YALTES_Stockage_Sample.csv', 'a', newline='') as csv_file_to_write:
         product_writer = csv.writer(
             csv_file_to_write)
