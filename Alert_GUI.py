@@ -29,7 +29,7 @@ products = ['KVM', '32"Inches LCD Display', 'Filter', 'Workstation']
 # to hold variables from the GUIs'
 variable_product_type = StringVar()
 # At the begining, user will see first element of the list on the menu.
-variable_product_type.set(products[0])
+variable_product_type.set("Please select the product type")
 
 # creating widget
 dropdown = OptionMenu(
@@ -41,39 +41,30 @@ dropdown = OptionMenu(
 # positioning widget
 dropdown.pack(expand=True)
 
+# creating a button for quiting the window
 ok_btn = tk.Button(First_Window, text='OK', command=First_Window.destroy)
-ok_btn.pack(anchor=S)
-
-# ürün türünü seçerken isim, ilk adet ve tarih de girilsin
-# ordan da girilen değerler class'ların içine değer olarak girsin
-# mesela:
-# isim = entry(blabla)
-# tarih = entry(blabla)
-# SIUC(isim,adet,tarih).IsUnnecassaryStockage diye giderim
+ok_btn.pack(after=dropdown, expand=True)
 
 
 # infinite loop
 
 First_Window.mainloop()
 
+
 # Submit widget section
 second_window = tk.Tk()
 second_window.title("Enter Model Part No and Arrival Date")
 # setting the windoFirst_Window size
-second_window.geometry("600x400")
+second_window.geometry("400x300")
 
-# declaring string variable_product_type
-# for storing model_name and Arrival_date
+
+# declaring string model_id_var
+# for storing model_name
 model_id_var = StringVar()
-# arriv_date_var = StringVar()
 
 # print(model_id_var.get())
-model_id_var.set("KVM6")
-# arriv_date_var.set("07/09/2021")
+model_id_var.set("Enter ID of choosen product.")
 
-# defining a function that will
-# get the model_name and Arrival_date and
-# print them on the screen
 
 global model_name
 
@@ -97,15 +88,7 @@ model_id_name = tk.Label(
 # creating a entry for input
 # model_name using widget Entry
 model_id_entry = Entry(second_window, text=model_id_var,
-                       font=('calibre', 10, 'normal'))
-
-# # # creating a label for Arrival_date
-# passw_label = tk.Label(second_window, text='First Arrival Time:',
-#                        font=('calibre', 10, 'bold'))
-
-# # # creating a entry for Arrival_date
-# passw_entry = tk.Entry(second_window, text=arriv_date_var,
-#                        font=('calibre', 10, 'normal'))
+                       font=('calibre', 10, 'normal'), width=30)
 
 
 # creating a button using the widget
@@ -116,11 +99,11 @@ sub_btn = tk.Button(second_window, text='Submit', command=lambda: [
 # placing the label and entry in
 # the required position using grid
 # method
-model_id_name.grid(row=0, column=0)
-model_id_entry.grid(row=0, column=1)
+model_id_name.pack(padx=10, pady=10, expand=True)
+model_id_entry.pack(padx=10, pady=10, expand=True)
 # passw_label.grid(row=1, column=0)
 # passw_entry.grid(row=1, column=1)
-sub_btn.grid(row=2, column=1)
+sub_btn.pack(padx=10, pady=10, expand=True)
 
 # performing an infinite loop
 # for the window to display
@@ -185,9 +168,9 @@ Under_limit_Sit_Label = Label(
     down_left_frame, bg='#add8e6', text='Our Stockage is' + '\n' + 'under the minimum limit?', font="Verdana 9 bold").pack(padx=10, pady=10, anchor=N)
 
 
-print("model_id_var ==> ", model_id_var.get())
-print("variable_product_type.get() ==> ", variable_product_type.get())
-print("quantity ==> ", read_csv(model_id_var.get()))
+# print("model_id_var ==> ", model_id_var.get())
+# print("variable_product_type.get() ==> ", variable_product_type.get())
+# print("quantity ==> ", read_csv(model_id_var.get()))
 
 print(f"quantity of {model_id_var.get()} is {read_csv(model_id_var.get())}.")
 # print(f"is {model_id_var.get()} under limit: {KVM(read_csv(model_id_var.get()),arriv_date_var.get()).IsUnderLimit()}")
@@ -230,13 +213,5 @@ def get_is_under_limit():
 
 get_is_under_limit()
 
-
-# Under_limit_Sit = Label(
-#     down_right_frame, bg='#add8e6', fg="red", text=get_is_under_limit(), font="Verdana 13 bold").pack(padx=10, pady=10, expand=True)
-
-
-""" Yapılması gerekenler --->
-kullanıcıdan gelen inputları class'larda çalıştırabilmek
-"""
 
 third_window.mainloop()
